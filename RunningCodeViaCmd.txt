@@ -1,0 +1,10 @@
+g++ -Wall -std=c++14 filename.cpp \\ creates a.exe file
+
+g++ -Wall -std=c++14 filename.cpp filename.exe \\ creates filename.exe file
+
+To run the exe file on Windows cmd type its name without ".exe"
+
+To run the exe file on VSC terminal type .\filename without ".exe"
+
+To run the exe file type ./filename.exe on GitBash
+
