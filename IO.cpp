@@ -1,10 +1,11 @@
 #include <iostream> 
-//using namespace std; 
+using namespace std; 
 
 int main() 
 {
-    int data;
-    std::cin >> data
-    std::cout << "Hello World" << std::endl; 
+     cout << "Hello world!" << endl;
+
+//     cout << "Hello";
+//     cout << "World!" << endl;
     return 0;  
 }

@@ -1,6 +1,7 @@
 // Part starts with # is called as preprocessor. This is a program that preprocess your program before compiler sees it.
 // These directives starts with #(hashtag or paund) as shown below.
 // #if #elif #else can be used to run only a pair of the code!
+
 #include <iostream> // is a header file in which we have I/O library, without this we can not define I/O 
 using namespace std; // if you type this at the beginning of your code you do not have to type std:: shown below everytime!
 
