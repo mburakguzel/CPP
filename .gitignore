@@ -35,7 +35,7 @@
 *.out
 *.app
 
-#VScode Folder
+# VScode Folder
 .vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++
