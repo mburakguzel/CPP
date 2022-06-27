@@ -44,6 +44,7 @@ int main()
     // int age = 21;
     // int age(21);
     // int age{21}; // This is suggested! 
+    // int age{}; // use this if initial value is not important, program assigns automatically zero
 // This is suggested because for only this type of decleration, compilers warns us for overflow. Not for other decleration types.
     // char middle_initial{'J'};
     // unsigned short int exam_score{55};
@@ -88,6 +89,8 @@ int main()
     // const int width = 5;
     // const double pi {3.1415926}
     // #define pi 3.141592 (do not use this in modern C++)
+    // const int days_in_year [365]; // array with size 365 but constantt
+    
 
 
     return 0;  
