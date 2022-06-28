@@ -124,5 +124,16 @@ int main()
 // Ex: a*b+c; means a*(b+c)
 // Ex: cost += items*tax means cost = cost + (items*tax)
 
+// CONDITIONAL OPERATOR
+// is like an if-else statement!
+    result = (a > b) ? a:b;
+    // Means:
+    if (a > b)
+        result = a;
+    else
+        result = b;
+// Another Ex:   
+    cout << ((num % 2 == 0) ? "Even" : "Odd") << endl;
+    
 // For operator precedence, check online tables!
 
