@@ -24,6 +24,7 @@ int main()
     // short int     at least 16 bits 
     // long int      at least 32 bits
     // long long int at least 64 bits
+// long double > double > float > unsigned long > long > unsigned int > int 
 
 // Unsigned can be added before to all integer types (0 and positive integers).
 // After short, long, long long, unsigned we do not have to type int!
