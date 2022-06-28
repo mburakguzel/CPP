@@ -64,5 +64,15 @@ int main() {
     if (temperatures.size() != 0)
         average_temp = total / temperatures.size();
         
-    cout << fixed << setprecision(1);
+    cout << fixed << setprecision(1); // this shows only on digit after decimal point, raunds the value. <iomanip> library must be added to use this! 
     cout << "Average temperature is " << average_temp << endl;
+
+// CONTINUE
+// No further statement in the body of the loop are executed.
+// Control immediately goes directly to the beginning of the next iteration.
+    continue;
+// BREAK
+// No further statement in the body of the loop are executed.
+// Loop is immediately terminated.
+// Control immediately goes directly to the statement following the loop construct.
+    break;
