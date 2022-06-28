@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <iomanip>
 using namespace std; 
 
 int main() 
@@ -54,5 +55,11 @@ int main()
 // MATH OPERATION CAN BE USED IN cout
 //    cout << "The area of the room is: " << room_length*room_width << " square feet" << endl;
 
-    return 0;  
+// Show only one digit after decimal point!
+
+    cout << fixed << setprecision(1); // this shows only on digit after decimal point, raunds the value. 
+    #include <iomanip> library must be added to use this!  
+
+
+    return 0; 
 }

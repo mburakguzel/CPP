@@ -37,5 +37,8 @@
 
 // Since the size of an array van not be altered, we rarely use them, we use vectors instead!
 
-
-
+// SHoWING ELEMENTS OF AN ARRAYT
+    for (int i{0}; i<=10; i+=1) {
+            cout << scores[i] << endl;
+    }
+// Be careful with the array size, otherwise program may give error!

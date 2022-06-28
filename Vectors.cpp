@@ -81,6 +81,11 @@ int main()
     // cout << "The first element of vector1 is: " << vector1.at(0) << endl;
     // cout << "The second element of vector1 is: " << vector1.at(1) << endl;
 
-    return 0;
+// For loop with vectors
+    vector<int> nums { 10,20,30,40,50};
+    for (unsigned i{0}; i < nums.size(); ++i) // checks size of vector! This code may generate a warning size vector.size is unsigned int and i is int. Change i to unsigned to delete that warning.        cout << nums[i] << endl;
 
+
+
+    return 0;
 }   
