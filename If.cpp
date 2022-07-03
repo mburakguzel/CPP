@@ -11,6 +11,11 @@
 
 // Variables defined in if, can not be used outside of the if statement!
 
+// If there is a semicolon at the end of the else statement, program will not perform the statement under it even condition is satisfied.
+	if (num > min);
+        cout << "\n============If statement 1 ================" << endl; // will not show this!
+
+
 // IF - ELSE IF 
     if (num > min){
         cout << "\n============If statement 1 ================" << endl;
