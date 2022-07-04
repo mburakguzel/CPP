@@ -2,6 +2,7 @@
 #include <cctype>    // In order to use c-style strings, we need to add cctype library #include <cctype>
 #include <cstring>   // Library to use c-style string functions. (e.g strlen)
 // #include <cstlib>  // Library to convert strings to other types!  Not works!   
+#include <string> // String header file must be added to use C++ strings!
 using namespace std; 
 
 int main() 
@@ -19,7 +20,7 @@ int main()
         // Lets say that we have a string as "C++ is fun", on memory it is stored as "C++ is fun\0"
         // Therefore a string with 10 cahrs, occupies memory of 11 chars.
         // Let`s say that we initialize a string with 8 elements:
-        char my_name [8] {"Burak"};
+        char my_name [8] {"Burak"}; // Does not work w/o [] size. Always define length one more than string for \0 null char!!!!
         // in memory this is creates as "Burak\0\0\0"
         my_name [5] = 'y'; // will not cause an error!
     
@@ -78,7 +79,125 @@ int main()
                 full_name[i] = toupper(full_name[i]);
         }
 
+    // -------------o-------------------o---------------------------o-------------------------------o---------------------------------o--------------------------------------o
+
+    // C++ STRINGS
+    // C++ string is a class in the C++ standard template library or stl.
+    // String header file must be added to use C++ strings!
+        #include <string>
+    // C++ strings are in standard namespace so define it or type std:: everytime before use them! This is also true for functions and methods of C++ strings!
+    // Strings can grow and shrink as needed at runtime!
+    // C++ strings can easily converted to c-style strings and converted back again!
+
+    // DECLARE C++ STRING
+        string s1;          // Unlike c-style strings, C++ strings are always initialized. This is initialized as empty string! No garbage in memory!
+        sring s2 {"Burak"}; // Initilaized as c-style literal, it is okay, converted to c++ string automatically!
+        string s3 {s2};     // Initialized as s2 - Burak
+        string s4 {"Burak", 3};  // First three letters of string will be "Bur"
+        string s5 {s3, 0, 2};  // 0 is  startin index, 2 is length "Bu"
+        string s6 (3, 'X'); // three times 'X' will be "XXX", be aware that uses paranthesis instad of curlies! 
+
+    // ASSIGN STRINGS
+        string s1;
+        s1 = "C++ rocks!";
+        s2 = s1;            // Another way of assigment!
+
+    // CONCATENATE (ADD) STRINGS
+        string part1 {"C++"};
+        string part2 {"rocks"};
+        string sentence;
+        sentence = part1 + " " + part2; + "!";
+
+        sentence = "C++" + " rocks!" // Will not compile since two c-style literals can not be concatenated. But if we put a c++ string as shown above it would be compiled!
+
+        string s1 = "Burak";
+        s1 += " Guzel";   // Burak Guzel   
+
+    // REACH ELEMENT OF A STRING
+        cout << part1[0] << endl; // or
+        cout << part.at(0) << endl; // as vectors! Performs bounds checking!!!
+
+    // Range based for loop can be used to reach elemnts:
+        for (char c: s1)   // If we use int instead of char here, it will show integer value(ASCI codes of those chars) that represents those characters.
+            cout << c << endl;
+
+    // COMPARE C++ STRINGS
+    // Use ==, !=, >, <, >=, or <=
+    // Capital a is less than a capital Z. Capital leaders are > lowercase!
+    // Two c++ strings, one c++ string and one c-style string, one c++ string or one c-style lateral can be compared with these operators. Two c-style strings or laterlas can NOT be compared.
+
+        string s0;
+        string s1 {"Apple"};
+        string s2 {"Banana"};
+        string s3 {"Kiwi"};
+        string s4 {"apple"};
+        string s5 {s1};         // Apple
+        string s6 {s1, 0, 3};   // App
+        string s7 (10, 'X');    // XXXXXXXXXX
+
+        s1 == s5 // True
+        s1 == s2 // False
+        s1 != s2 // True
+        s1 < s2  // True
+        s2 > s1  // True
+        s4 < s5  // True
+        s1 == "Apple" // True
+
+    // METHODS OF C++ STRINGS
+    // Substring - substr() - 
+
+        string s1 = {"This is a test"};
+        cout << s1.substr(0,4);    // This (starts from 0 and subs 4 chars)
+        cout << s1.substr(5,2);    // is (starts from 5 and subs 2 chars)
+        cout << s1.substr(10,4);    // test (starts from 10 and subs 4 chars)
+
+        
+        cout << s0 << endl;                  // No garbage
+        cout << s0.length() << endl;     // empty string
+
+    // Search - find() - Returns the beggining of the string or caharcter that is searched!
+        string s1 = {"This is a test"};
+        cout << s1.find("This");     // 0 -- starts in index 0
+        cout << s1.find("is");       // 2
+        cout << s1.find("test");     // 10
+        cout << s1.find('e');        // 11
+        cout << s1.find("is", 4);    // 5  -- Starts from index 4!
+        cout << s1.find("XX");       // string::npos means no positin, not found!
+
+        s1.rfind('t') // 13 -- rfind is a string class member function that is used to search the last occurrence of any character in the string
+
+    // Remove Char -erase() and clear()
+        string s1 = {"This is a test"};
+        cout << s1.erase(0,5);   // is a test - erases starting from 0 and 5 elements!
+        cout << s1.erase(5,4);   // is a - Reminder string was is a test, this deleted test!
+
+        s1.clear();  // deletes all elements of string, string becomes and empty string
+
+    // Length of a string - length()
+        string s1 = "Burak";
+        cout << s1.length() << endl; // 5
+
+    // Input with C++ Strings
+   // If you ask user to enter a string and user type space in this string, cin command will get only the part before space!
+        cout << "Enter your full name: ";
+        cin >> full_name;     
+        cout << "Your full name is " << full_name << endl;
+
+    // getline allows us to get string with spaces. Reads entire line untill \n
+        cout << "Enter your full name: ";
+        getline(cin, s1); // first one is input stream (cin since user enter from keyboard), second one where to store entered input.
+        cout << "Your full name is " << full_name << endl;
     
+    // Another type of getline
+        getline (cin, s1, 'x'); // Program accept input untill x is typed.
+
+
+ 
+
+
+
+
+
 
 
 
