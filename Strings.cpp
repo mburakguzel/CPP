@@ -97,7 +97,7 @@ int main()
         string s5 {s3, 0, 2};  // 0 is  startin index, 2 is length "Bu"
         string s6 (3, 'X'); // three times 'X' will be "XXX", be aware that uses paranthesis instad of curlies! 
 
-    // ASSIGN STRINGS
+    // ASSIGN C++ STRINGS
         string s1;
         s1 = "C++ rocks!";
         s2 = s1;            // Another way of assigment!
@@ -116,6 +116,10 @@ int main()
     // REACH ELEMENT OF A STRING
         cout << part1[0] << endl; // or
         cout << part.at(0) << endl; // as vectors! Performs bounds checking!!!
+        
+        for(size_t i{0}; i < part1.length(); ++i) {
+            cout << part1.at(i);
+        }
 
     // Range based for loop can be used to reach elemnts:
         for (char c: s1)   // If we use int instead of char here, it will show integer value(ASCI codes of those chars) that represents those characters.
@@ -140,7 +144,7 @@ int main()
         s1 != s2 // True
         s1 < s2  // True
         s2 > s1  // True
-        s4 < s5  // True
+        s4 < s5  // False because uppercase letters come befor lowercase letters in ASCI table
         s1 == "Apple" // True
 
     // METHODS OF C++ STRINGS
@@ -166,6 +170,18 @@ int main()
 
         s1.rfind('t') // 13 -- rfind is a string class member function that is used to search the last occurrence of any character in the string
 
+        s1 = "The secret word is Boo";
+        string word {};
+           
+        cout << "Enter the word to find: ";
+        cin >> word;
+           
+        size_t position = s1.find(word);
+        if (position != string::npos)    // This can be handy!
+           cout << "Found " << word << " at position: " << position << endl;
+        else
+           cout << "Sorry, " << word <<  " not found" << endl;
+
     // Remove Char -erase() and clear()
         string s1 = {"This is a test"};
         cout << s1.erase(0,5);   // is a test - erases starting from 0 and 5 elements!
@@ -178,7 +194,7 @@ int main()
         cout << s1.length() << endl; // 5
 
     // Input with C++ Strings
-   // If you ask user to enter a string and user type space in this string, cin command will get only the part before space!
+    // If you ask user to enter a string and user type space in this string, cin command will get only the part before space!
         cout << "Enter your full name: ";
         cin >> full_name;     
         cout << "Your full name is " << full_name << endl;

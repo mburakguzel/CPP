@@ -8,7 +8,8 @@ int main() {
     for (int i{1} ; i <=10 ; ++i) // initialize i to 1, untill i = 10 runs code under for and i++ at the end) i++ or ++i does not matter in this case!
     // for (int i = 1 ; i <=10 ; ++i) also correct!
         cout << i << endl;
-
+    // Using size_t type (a special type) is recommended, when i does not become negative, in for loop instead if int. size_t can be an unsigned int or unsigned long based on our system!
+    for (size_t i{1} ; i <=10 ; ++i)
     cout << endl;
     return 0;
 }
