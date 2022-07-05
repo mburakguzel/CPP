@@ -193,6 +193,10 @@ int main()
         string s1 = "Burak";
         cout << s1.length() << endl; // 5
 
+    // Insert a char or string inside a string
+        string unformatted_full_name {"StephenHawking"};
+        unformatted_full_name.insert(7, " ");     // Inserts a space before 7th element of the string! Become ==> Stephen Hawking
+
     // Input with C++ Strings
     // If you ask user to enter a string and user type space in this string, cin command will get only the part before space!
         cout << "Enter your full name: ";
@@ -206,6 +210,7 @@ int main()
     
     // Another type of getline
         getline (cin, s1, 'x'); // Program accept input untill x is typed.
+
 
 
  
