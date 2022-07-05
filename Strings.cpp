@@ -193,9 +193,15 @@ int main()
         string s1 = "Burak";
         cout << s1.length() << endl; // 5
 
-    // Insert a char or string inside a string
+    // Insert a char or string inside a string - insert -
         string unformatted_full_name {"StephenHawking"};
         unformatted_full_name.insert(7, " ");     // Inserts a space before 7th element of the string! Become ==> Stephen Hawking
+    
+    // Swap two strings - swap -
+        string journal_entry_1 {"Newton"};
+        string journal_entry_2 {"Leibniz"};
+        if (journal_entry_2 < journal_entry_1)
+            journal_entry_2.swap(journal_entry_1); // Swaps newton to entry2 and Leibniz to entry1
 
     // Input with C++ Strings
     // If you ask user to enter a string and user type space in this string, cin command will get only the part before space!
