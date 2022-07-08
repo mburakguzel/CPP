@@ -175,3 +175,95 @@ int main() {
     cout << endl;
     return 0;
 }
+
+// USE ARRAYS IN FUNCTIONS!
+// Remember when we cout an array it was showing only the memory address of the array`s first element.
+// So, entering an array to a function as an argument is not passing the data to function.
+// So, we need to pass the array with [] and szie of the array as shown below.
+// Passed array can be defined as const, in order to prevent it from being modified in function.
+
+void print_array(const int arr[], size_t size);
+void set_array(int arr[], size_t size, int value);
+
+void print_array(const int arr[], size_t size) {  // const
+    for (size_t i{0}; i < size; ++i)
+        cout << arr[i] << " ";
+    cout << endl;
+   // arr[0] = 50000; // bug
+}
+
+// set each array element to value. Not declined as const since we want to modify the array in function.
+void set_array(int arr[], size_t size, int value) {
+    for (size_t i{0}; i < size; ++i)
+        arr[i] = value;
+}
+
+int main() {
+    int my_scores[] {100, 98, 90, 86, 84};
+    
+    print_array(my_scores, 5);
+    set_array(my_scores, 5, 100);
+    print_array(my_scores, 5);
+    print_array(my_scores, 5);
+    
+    cout << endl;
+    return 0;
+}
+
+
+// PASS BY REFERENCE - & (Ampersand Operator)
+// Normally when we pass a parameter to a function, it copies the variable to parameter in function. 
+// So, when we modify this parameter, the variable itself does not change as return of the function.
+// In order to change a variable permanently in an array, we need to pass it with & operator.
+// Since we do not copy the variable to parameter of the function, this also decreases the code execuation time!
+
+void pass_by_ref1(int &num);
+void pass_by_ref2(string &s);
+void pass_by_ref3(vector<string> &v);
+void print_vector(const vector<string> &v);  // const
+
+void pass_by_ref1(int &num) {
+    num = 1000;
+}
+
+void pass_by_ref2(string &s) {
+    s = "Changed";
+}
+
+void pass_by_ref3(vector<string> &v) {
+    v.clear();  // delete all vector elements
+}
+
+void print_vector( const vector<string> &v)  {
+    for (auto s: v) 
+        cout << s << " ";
+    cout << endl;
+}
+
+int main() {
+    int num {10};
+    int another_num {20};
+    
+    cout << "num before calling pass_by_ref1: " << num << endl;
+    pass_by_ref1(num);
+    cout << "num after calling pass_by_ref1: " << num << endl;
+    
+    cout << "\nanother_num before calling pass_by_ref1: " << another_num << endl;
+    pass_by_ref1(another_num);
+    cout << "another_num after calling pass_by_ref1: " << another_num << endl;
+
+    string name {"Frank"};
+    cout << "\nname before calling pass_by_ref2: " << name << endl;
+    pass_by_ref2(name);
+    cout << "name after calling pass_by_ref2: " << name << endl;
+
+    vector<string> stooges {"Larry", "Moe", "Curly"};
+    cout << "\nstooges before calling pass_by_ref3: ";
+    print_vector(stooges);
+    pass_by_ref3(stooges);
+    cout << "stooges after calling pass_by_ref3: ";
+    print_vector(stooges);
+    
+    cout << endl;
+    return 0;
+}
