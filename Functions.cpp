@@ -267,3 +267,39 @@ int main() {
     cout << endl;
     return 0;
 }
+
+
+// RECURSIVE FUNCTIONS
+// Recursive function is a function that can call itself!
+// recursion is a form of iteration. Use it when you need iteration!
+
+unsigned long long factorial(unsigned long long);
+
+unsigned long long factorial(unsigned long long n) {
+    if (n == 0)
+        return 1;	               // base case
+    return n * factorial(n-1);     // recursive case - funtion called in it!
+    // factorial can be called more than once in itself!
+}
+
+int main() {
+    cout << factorial(3) << endl;       // 6
+//    cout << factorial(8) << endl;     // 40320
+//    cout << factorial(12) << endl;   // 479001600
+//    cout << factorial(20) << endl;   // 2432902008176640000
+    return 0;
+}
+
+// INLINE FUNCTIONS
+// Inline functions avoid a function call overhead (asiri yuklenme - funtionlar icin ayrilan hafizayi asma)!
+// Inline functions are mostly used in header or .h file, since definition muste be available to every source file that uses it.
+// Inline functions are executed faster!
+
+inline int add_numbers (int a, int b){
+    return a+b;
+}
+
+int main(){
+    int result {};
+    result = add_numbers(100, 200);
+}
