@@ -194,7 +194,7 @@ int main(){
     // Another case, const is after int
     int *const  score_ptr{&high_score};
 
-    *score_ptr = 86;         // OK! Biz bunu degistirince high_score degeri de degisiyor mu?? Bence degismez!
+    *score_ptr = 86;         // OK! Also high_scores becomes 86!!!!
     score_ptr = &low_score;  // ERROR this time address become constant!
     
     // Last case, const is after int
