@@ -280,6 +280,12 @@ int main() {
                                                            // the parameter is expensive to copy
                                                            // Ok to the pointer is allowed a nullptr value! (reference can not have null value!)
                                                            // You do not want to modify the pointer itself!
+// Pass by reference using a reference is used:  when the function does modify the actual parameter (References can not have null value!)
+                                                // the parameter is expensive to copy
+                                                // The parameter will never be nullptr!  (References can not have null value!)
+// Pass by reference using a const reference to const is used:  when the function does NOT modify the actual parameter (References can not have null value!)
+                                                                // the parameter is expensive to copy
+                                                                // Ok to the pointer is allowed a nullptr value! (reference can not have null value!)
 
 
 // RECURSIVE FUNCTIONS
