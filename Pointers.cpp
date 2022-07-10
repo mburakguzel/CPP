@@ -202,4 +202,105 @@ int main(){
 
     *score_ptr = 86;         // ERROR!
     score_ptr = &low_score;  // ERROR!
-}
+
+
+    // PASSING POINTERS TO FUNCTIONS
+
+    void double_data(int *int_ptr) {
+    *int_ptr *= 2;   // multiplies by 2
+    }
+    // in main
+    int value {10};
+    double_data(&value);
+    cout << "Value: " << value << endl;
+
+    cout << "-----------------------------" << endl;
+    int_ptr = &value;
+    double_data(int_ptr);
+    cout << "Value: " << value << endl;
+
+    // Another example:
+    void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+
+    // in main
+    int x {100}, y {200};
+    cout << "\nx: " << x <<  endl;
+    cout << "y: " << y <<  endl;
+    
+    swap(&x, &y);
+    
+    cout << "\nx: " << x <<  endl;
+    cout << "y: " << y <<  endl;
+
+    // Another Example
+    void display( const vector<string> *const  v) {
+    //(*v).at(0) = "Funny";   // since the pointer and variable is defined as const, activating this will giver error!
+        for (auto str: *v)
+            cout << str << " ";
+        cout << endl;
+  
+    //   v = nullptr; // since the pointer and variable is defined as const, activating this will giver error!
+    }
+
+    void display(int *array, int sentinel) {
+        while (*array != sentinel)
+            cout << *array++ << " ";
+        cout << endl;
+    }
+
+    // in main
+
+        cout << "-----------------------------" << endl;
+        vector<string> stooges {"Larry", "Moe", "Curly"};
+        display(&stooges);
+    
+        cout << "\n-----------------------------" << endl;
+        int scores[] {100,98,97,79,85,-1};
+        display(scores, -1);
+
+    // RETURN POINTER FROM FUNCTION
+    // In order to return a pointer from a function function shuld be defined with an asteriks on it!
+    int *create_array(size_t size, int init_value = 0) {
+        int *new_storage {nullptr};
+        new_storage = new int[size];   
+        for (size_t i{0}; i < size; ++i)
+            *(new_storage + i) = init_value;
+        return new_storage;
+    }
+
+    // In main
+    int *my_array {nullptr};
+    size_t size;
+    int init_value {};
+    
+    cout << "\nHow many integers would you like to allocate? ";
+    cin >> size;
+    cout << "What value would you like them initialized to? ";
+    cin >> init_value;
+    
+    my_array = create_array(size, init_value);
+
+    // DO NOT DO THIS!
+    int *dont_do_this(){
+        int size{};
+        // ...
+        return &size; // since the adress of the size would change everytime we call this funcction, this data is not reliable data. It would give us a garbage information.
+        // OR
+        int size{};
+        int *int_ptr{&size};
+        // ...
+        return &int_ptr; // since the adress of the size would change everytime we call this funcction, this data is not reliable data. It would give us a garbage information.
+
+    }
+
+    // PITFALLS (GIZLI TUZAK) FOR POINTERS
+    // Uninitialized pointers: can point a area used by OS or progra itself!
+    // Dangling (askida duran, asili olan) Pointers: points to a memory which is no longer valid! Returning addressis of functions local variables can cause this, since that memory
+                                                  // is not valid anymore after function is terminated or two pointers allocatin same memory but one relases it!.
+    // Not checking if new failed:
+    // Memory leakage: when we allocate memory dynamically from the heap in a function, and dunction terminates. C++ still holds that memory for this pointer! This causes memory leakage!
+    // Smart pointers fixes all above problems!
+}   
