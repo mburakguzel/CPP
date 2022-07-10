@@ -1,3 +1,5 @@
+BUILDING CODE VIA CMD:
+
 g++ -Wall -std=c++14 filename.cpp \\ creates a.exe file
 
 g++ -Wall -std=c++14 filename.cpp filename.exe \\ creates filename.exe file
@@ -8,3 +10,15 @@ To run the exe file on VSC terminal type .\filename without ".exe"
 
 To run the exe file type ./filename.exe on GitBash
 
+
+If you are building from the command line, you must make sure that all of the .cpp source files are included on the command-line command that builds your project.
+For example, suppose our project consists of: 
+    main.cpp -- the main program driver which includes “Account.h”
+    Account.cpp -- the Account implementation which also includes “Account.h”
+    Account.h -- the Account specification
+In order to build this project from the command-line you must include all (2 in this case) of the .cpp source files as arguments to the compiler. 
+For example: g++ -Wall -std=c++14 main.cpp Accaunt.cpp
+If you omit any of the .cpp source files then you will surely get linker error.
+It is common for students to ‘fix’ the linker errors by using #include “Account.cpp” from main.cpp
+This is a bad idea and will lead to all sort of errors later as our projects become larger.
+Please do not #include any .cpp source files, you should only #include .h header files.

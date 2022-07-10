@@ -20,6 +20,7 @@ int main(){
     unsigned long long *p3 {nullptr};
     vector<string>  *p4{nullptr};
     string *string_ptr{nullptr};
+    int **ptr{nullptr}; // address of the pointer ptr! 
 
     // Always initialize the pointer, otherwise it contains garbage data!
     // nullptr means zero (points nowehere) and available after c++11
@@ -303,4 +304,6 @@ int main(){
     // Not checking if new failed:
     // Memory leakage: when we allocate memory dynamically from the heap in a function, and dunction terminates. C++ still holds that memory for this pointer! This causes memory leakage!
     // Smart pointers fixes all above problems!
+
+
 }   
