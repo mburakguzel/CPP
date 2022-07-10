@@ -212,10 +212,11 @@ int main() {
 
 
 // PASS BY REFERENCE - & (Ampersand Operator)
-// Normally when we pass a parameter to a function, it copies the variable to parameter in function. 
+// Normally when we pass a parameter to a function, it copies the variable to parameter in function. (This is called PASS BY VALUE)
 // So, when we modify this parameter, the variable itself does not change as return of the function.
 // In order to change a variable permanently in an array, we need to pass it with & operator.
 // Since we do not copy the variable to parameter of the function, this also decreases the code execuation time!
+
 
 void pass_by_ref1(int &num);
 void pass_by_ref2(string &s);
@@ -267,6 +268,18 @@ int main() {
     cout << endl;
     return 0;
 }
+
+// IMPORTANT NOTE: We use pass by reference when we need to modify the parameter or the parameter we enter contains high amount of data! For the second scenario, pass by reference is much more efficient!
+// Pass by reference using a pointer is used: when the function does modify the actual parameter
+                                           // the parameter is expensive to copy
+                                           // Ok to the pointer is allowed a nullptr value!
+// Pass by reference using a pointer to const is used:  when the function does NOT modify the actual parameter (References can not have null value!)
+                                                        // the parameter is expensive to copy
+                                                        // Ok to the pointer is allowed a nullptr value! (reference can not have null value!)
+// Pass by reference using a const pointer to const is used:  when the function does NOT modify the actual parameter (References can not have null value!)
+                                                           // the parameter is expensive to copy
+                                                           // Ok to the pointer is allowed a nullptr value! (reference can not have null value!)
+                                                           // You do not want to modify the pointer itself!
 
 
 // RECURSIVE FUNCTIONS
