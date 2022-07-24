@@ -270,6 +270,9 @@ int main(){
     // Constructors are special member methods that are invoked (yakarmak, cagirmak) during object creatation.
     // They are commonly used for initialization. Constructors are easy to recognize since they have the same name as the class.
     // Constructirs do not specify a return type and like other methods they can be overloaded.
+    // Classes can have as many constructors as necessary. The only restriction is that they must each have a unique signature. Program can call them based on the initialization information provided.
+    // If there is a ambiguity, compiler will generate a compiler error.
+    // Each constructor is actually a way to create object! Overloading constructors are ways to define multiple ways to define an object and initialize it (to prevent them to have garbage data!).
 
 class Player
 {
@@ -323,10 +326,220 @@ int main() {
     
     return 0;
 }
+    // Another Example to constructors:
 
+    class Player
+    {
+    private:
+    std::string name;
+    int health;
+    int xp;
+    public:
+        void set_name(std::string name_val) { 
+            name = name_val; 
+        }
+        std::string get_name() {
+            return name;
+        }
+        Player() {
+            name = "None";
+            health = 100;
+            xp = 3;
+        }
+        Player(std::string name_val, int health_val, int xp_val) {
+            name = name_val;
+            health = health_val;
+            xp = xp_val;
+        }
+        
+    };
+
+    int main() {
+        Player hero;
+        Player frank {"Frank", 100, 13};
+        frank.set_name("Frank");
+        cout << frank.get_name() << endl;
+        return 0;
+    } 
     // DESTRUCTORS
     // Destructors are also special member methods that have the same name as the class. However, destructors have a tilde preceiding their name.
     // Destructors are invoked automatically by C++ when an object is destroyed. Greate please to release memory, closed files and free up any other resources.
     // Makes no sense to allow overloaded destructors means only one destructor is allowed per class, can not be overloaded.
     // If we do not provide any constructor or destructor, c++ will automatically provide a default constructor that are empty.
-}
+
+    // INSTRUCTOR INITIALIZATION LIST
+    // So far, we have written our codes so that we initialize our data membet values in the constructor body by assigning values to them. But this is technically not initialization!
+    // Because by the time the constructor body is executed, these member attributes have already been created. (Means members are created before constructors.)
+
+    class Player
+    {
+    private:
+    std::string name {"XXXXXXX"};
+    int health;
+    int xp;
+    public:
+    // Overloaded Constructors
+        Player();
+        Player(std::string name_val);
+        Player(std::string name_val, int health_val, int xp_val);
+    };
+
+    Player::Player() 
+        : name{"None"}, health{0}, xp{0} {      // This is the new way of initializing, before we were actually assigning data not initializing as show below. Order of parameters here is not important. How we define them in class is important!
+    }                                           // This happens before the body of the constructor is ever executed!
+
+/*    Player() {                                // So basically, when we use this code in constructor, we initialize and assign another value to parameter. This is unnefficient.
+        name = "None";
+        health = 100;
+        xp = 3;
+    } */
+
+    Player::Player(std::string name_val) 
+    : name{name_val}, health{0}, xp{0} {
+    }
+    
+    Player::Player(std::string name_val, int health_val, int xp_val) 
+        : name{name_val}, health{health_val}, xp{xp_val} {
+        
+    }
+
+    int main() {
+        
+        Player empty;
+        Player frank {"Frank"};
+        Player villain {"Villain", 100, 55};
+        
+        return 0;
+    }
+    // DELEGATING CONSTRUCTORS
+    // This feature prevent us to dublicate our code. We use three args constructor (constructor with most constructors!) to build other constructors. 
+    // This is the most efficient way of creating constructors! But will be one step further below in default constructor parameters!
+
+    class Player
+    {
+    private:
+    std::string name;
+    int health;
+    int xp;
+    public:
+    // Overloaded Constructors
+        Player();
+        Player(std::string name_val);
+        Player(std::string name_val, int health_val, int xp_val);
+    };
+
+    Player::Player() 
+        : Player {"None",0,0} {         // Here we are delegating (calling) to three args constructor and run it to build this constructor!!!
+            cout << "No-args constructor" << endl;
+    }
+
+    Player::Player(std::string name_val) 
+    : Player {name_val,0, 0}  {
+            cout << "One-arg constructor" << endl;
+    }
+    
+    Player::Player(std::string name_val, int health_val, int xp_val) 
+        : name{name_val}, health{health_val}, xp{xp_val} {
+                cout << "Three-args constructor" << endl;
+    }
+
+    int main() {
+        
+        Player empty;
+        Player frank {"Frank"};
+        Player villain {"Villain", 100, 55};
+        
+        return 0;
+    }
+    // DEFAULT CONSTRUCTOR PARAMETER
+    // Creating all objects with only one constructor.
+    // For the above example, if you create an object with two args, this would cause an error. However, for this type of declaration is okay with that.
+    class Player
+    {
+    private:
+    std::string name;
+    int health;
+    int xp;
+    public:
+        Player(std::string name_val ="None", int health_val = 0, int xp_val = 0);
+    //  Player() {}    // Will cause a compiler error
+    };
+
+    
+    Player::Player(std::string name_val, int health_val, int xp_val) 
+        : name{name_val}, health{health_val}, xp{xp_val} {
+                cout << "Three-args constructor" << endl;
+    }
+
+
+    int main() {
+        
+        Player empty;
+        Player frank {"Frank"};
+        Player hero {"Hero", 100};
+        Player villain {"Villain", 100, 55};
+        
+        return 0;
+    }
+    // COPY CONSTRUCTOR
+    // When objects are copied, C++ must be able to create a new object from an existing object. In order to use this, it uses something called a copy constructor.
+    // When it is used?
+        // 1) passing object by value as a parameter.
+        // 2) Returning an object from a function by value.
+        // 3) Constructing one object based on another of the same class.
+    // We can provide our own copy constructor and we can define exactly the semantics we need for object copying. But if we don`t provide a copy constructor, the c++ compiler will provide a compiler genereated one.
+    // If your class has raw pointers as a member, and do not create a copy constructor, compiler generated constructor will copy only adress(pointer) not the data! This is called shallow copy.
+    // Therefore always define copy constructors when you use raw pointers. Provide the copy constructor with a const reference parameter.
+    // Use STL classes as they alreay provide copy constructors or use smart pointers. Will learn about them later!
+
+    class Player
+    {
+    private:
+    std::string name;
+    int health;
+    int xp;
+    public:
+        std::string get_name() { return name; }
+        int get_health() { return health; }
+        int get_xp() {return xp; } 
+        
+        Player(std::string name_val ="None", int health_val = 0, int xp_val = 0);
+        // Copy constructor                  // Const avoids us to modify the source, we only copy it without modifying.
+        Player(const Player &source);        // if we pass it in by value, then we have to make a copy of it. That`s the whole point of the copy constructor. We would defeat the purpose and end up with never ending recursive calls.
+        // Destructor
+        ~Player() { cout << "Destructor called for: " << name << endl; }
+    };
+
+    Player::Player(std::string name_val, int health_val, int xp_val) 
+        : name{name_val}, health{health_val}, xp{xp_val} {
+                cout << "Three-args constructor for " + name << endl;
+    }
+
+    Player::Player(const Player &source)
+    // : name(source.name), health(source.health), xp{source.xp} {      // Without delegating!
+        : Player {source.name, source.health, source.xp}  {             // Using delegating constructor here again!
+            cout << "Copy constructor - made copy of: " << source.name << endl; 
+    }
+
+    void display_player(Player p) {                       // Copy of object in function. Notice that this is a local object, when function is done the destructor will be called as well.
+        cout << "Name: " << p.get_name() << endl;
+        cout << "Health: " << p.get_health() << endl;
+        cout << "XP: " << p.get_xp() << endl;    
+    }
+
+    int main() {    
+        Player empty {"XXXXXX", 100, 50};
+        
+        Player my_new_object {empty};
+        
+        display_player(empty);
+        
+        Player frank {"Frank"};
+        Player hero {"Hero", 100};
+        Player villain {"Villain", 100, 55};
+            
+        return 0;
+    }
+
+
+    }
