@@ -541,5 +541,257 @@ int main() {
         return 0;
     }
 
+    // SHALLOW COPY
+    // First we assume that object that wea re copying has a raw pointer. During the contstruction of the pointer, we will allocate storage for the data that pointer is pointing to. And when we are done with the copy, release the allocated memory.
+    // Shallow copy: default behaviour of compiler provider copy constructor!
+        // Memberwise copy (Newly created object and the object beicg copied both pointing to the same area of storage in the heap.)
+        // Each data member is copied from the source object.
+        // The pointer is copied NOT what it points to.
+        // PROBLEM: when we release the storage in the decustructor, the other object still refers to the released storage!
+    
+    class Shallow {     // This program crashes to show problem!
+    private:
+        int *data;
+    public:
+        void set_data_value(int d) { *data = d; }
+        int get_data_value() { return *data; }
+        // Constructor
+        Shallow(int d);
+        // Copy Constructor
+        Shallow(const Shallow &source);
+        // Destructor
+        ~Shallow();
+    };
+
+    Shallow::Shallow(int d) {
+        data = new int;
+        *data = d;
+    }
+
+    Shallow::Shallow(const Shallow &source) 
+        : data(source.data) {
+            cout << "Copy constructor  - shallow copy" << endl;
+    }
+
+    Shallow::~Shallow() {
+        delete data;
+        cout << "Destructor freeing data" << endl;
+    }
+
+    void display_shallow(Shallow s) {
+        cout << s.get_data_value() << endl;
+    }
+
+    int main() {
+        
+        Shallow obj1 {100};
+        display_shallow(obj1);
+        
+        Shallow obj2 {obj1};
+        obj2.set_data_value(1000);         // Sets the value to 1000, since both ponters refer to this are, other pointers value also becomes 1000.
+        
+        // But this is not the real problem, when the program ends, deconstructors become active to relase the areas. This causes program to crash!!!
+        return 0;
+    }
+
+    // DEEP COPY
+    // Create a copy of the pointed to data.
+    // Each copy will have a pointer to unique storage in the heap.
+    // Use Deep copy when you have a raw pointer as a class member. 
+
+    class Deep {
+    private:
+        int *data;
+    public:
+        void set_data_value(int d) { *data = d; }
+        int get_data_value() { return *data; }
+        // Constructor
+        Deep(int d);
+        // Copy Constructor
+        Deep(const Deep &source);
+        // Destructor
+        ~Deep();
+    };
+
+    Deep::Deep(int d) {
+        data = new int;
+        *data = d;
+    }
+
+    Deep::Deep(const Deep &source)
+        : Deep {*source.data} {
+        cout << "Copy constructor  - deep copy" << endl;
+    }
+
+    Deep::~Deep() {
+        delete data;
+        cout << "Destructor freeing data" << endl;
+    }
+
+    void display_deep(Deep s) {
+        cout << s.get_data_value() << endl;
+    }
+
+    int main() {
+        
+        Deep obj1 {100};
+        display_deep(obj1);
+        
+        Deep obj2 {obj1};
+        
+        obj2.set_data_value(1000);
+    
+        return 0;
+    }
+
+    // MOVE CONSTRUCTOR
+    // Introduced after C++11
+    total = 100 + 200 // this statement generates an unnamed temp value and store 300 in this temp value first.
+                      // the 300 is then stored in the variable total. then the temp value is discarded. 
+    // The same happens with objects, however, with objects there can be a great amount of overhead if copy constructors are called over and over again.
+    // When we have raw pointers and we perform deep copies, the overhead is even greater. This is where move semantics and the move constructor comes into picture.
+    // Move constructor moves the object rather than copies it, this can be extremely efficient. (copying can be computationally expensive!)
+    // Move  constructors are optional, if you do not provide them, then the copy constructors will be called.
+    // In debugger when you run a code, if you do not see the move or copy constructor is called, it is normal. This is because of the compiler optimization. (return value optimization)
+    // Also called as copy illusion.
+    // R-value (right value, the values which are written on the right hand side of the statements.) references are references to R-values (temporary datas or objects that is mentioned above!)
+    // R-value reference operator is &&, while l-value reference operator is & as discussed before.
+
+    // Difference between default member-wise copy and the move:
+        // What we have with move is that an object who owns the data on the heap and then the original object with a null pointer to that data.
+        // In memberewise copy, both pointers were still referring to the data in the heap?????
+    
+    // No const parameter can be used in move constructor, since we need to modify it in order to null out its pointer.
+
+    class Move {
+    private:
+        int *data;
+    public:
+        void set_data_value(int d) { *data = d; }
+        int get_data_value() { return *data; }
+        // Constructor
+        Move(int d);
+        // Copy Constructor
+        Move(const Move &source);
+        // Move Constructor
+        Move(Move &&source) noexcept;
+        // Destructor
+        ~Move();
+    };
+
+    Move::Move(int d)  {
+        data = new int;
+        *data = d;
+        cout << "Constructor for: " << d << endl;
+    }
+
+    // Copy ctor
+    Move::Move(const Move &source)
+        : Move {*source.data} {
+            cout << "Copy constructor  - deep copy for: " << *data << endl;
+    }
+
+    //Move ctor
+    Move::Move(Move &&source) noexcept 
+        : data {source.data} {
+            source.data = nullptr;               // Without this constructor become a copy constructor.
+            cout << "Move constructor - moving resource: " << *data << endl;
+    }
+
+    Move::~Move() {
+        if (data != nullptr) {
+            cout << "Destructor freeing data for: " << *data << endl;
+        } else {
+            cout << "Destructor freeing data for nullptr" << endl;
+        }
+        delete data;
+    }
+
+    int main() {
+        vector<Move> vec;
+
+        vec.push_back(Move{10});
+
+        vec.push_back(Move{20});
+        vec.push_back(Move{30});
+        vec.push_back(Move{40});
+        vec.push_back(Move{50});
+        vec.push_back(Move{60});
+        vec.push_back(Move{70});
+        vec.push_back(Move{80});
+
+
+        return 0;
+    }
+
+    // `THIS` POINTER
+    // As we have stepped through our code in the debugger, you have seen an identifier named this in the debugger pane (work directory). 
+    // 'This' is a reserved keyword that contains the address of the current object. so, it is a pointer to the object that is currently being used by the class member methods.
+    // The this keyword can only be used within the scope of the class.
+    // In many other OOP languages, we use the word 'self' insead of 'this'.
+    // We can use 'this' to explicitly access data members and methods. We can also use it to determine if two objects are the same.
+
+    void Account::set_balance()  {
+        balance = bal;   // this->balance is implied (ima edilmek, kastetmek)
+    }
+    // or comparing two objects
+    int Account::compare_balance(const Account &other){
+        if (this == &other)
+            std::cout << "The same objects" << std::endl;
+    }
+    
+    // USING CONST WITH CLASSES
+
+    class Player
+{
+private:
+    std::string name;
+    int health;
+     int xp;  
+public:
+    std::string get_name() const  {         // 4) In order to eliminate errors given below (2), we need to tell compiler that our method will not change the parameter by adding that const there!
+        return name;                        // 5) if you modify the object in the body of this method, you would get a compiler error.
+    }
+    void set_name(std::string name_val)   {
+        name = name_val;
+    }
+// Overloaded Constructors
+    Player();
+    Player(std::string name_val);
+    Player(std::string name_val, int health_val, int xp_val);
+};
+
+Player::Player() 
+    : Player {"None",0,0} {
+}
+
+Player::Player(std::string name_val) 
+   : Player {name_val,0, 0}  {
+}
+  
+Player::Player(std::string name_val, int health_val, int xp_val) 
+    : name{name_val}, health{health_val}, xp{xp_val} {
+}
+
+void display_player_name(const Player &p) {
+    cout << p.get_name() << endl;              // 3) Generates error since p.get_name can potentally modify the const parameter p! 
+}
+
+int main() {
+    
+    const Player villain {"Villain", 100, 55};    // We can not change the atributes of this object since it is const!
+    Player hero {"Hero", 100, 15};
+    
+   // villain.set_name("Super villain");   // 1) generates error since object is const!
+    cout << villain.get_name() << endl;    // 2) generates also error since object is const and compiler thinks that this function has potential to change the object!!!
+    cout << hero.get_name() << endl;   
+    
+    display_player_name(villain);
+    display_player_name(hero);
+
+    
+  
+    return 0;
+}
 
     }
