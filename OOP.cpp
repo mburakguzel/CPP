@@ -787,11 +787,256 @@ int main() {
     cout << hero.get_name() << endl;   
     
     display_player_name(villain);
-    display_player_name(hero);
-
-    
+    display_player_name(hero); 
   
     return 0;
 }
 
+    // STATIC CLASS MEMBERS 
+    // When we declare class data members as static, we tell c++ compiler that this members belong to the class, not to any specific object.
+    // Suppose we wanted to know how many player objects we have active in our application at any point in time. We could create a global variable and then increment and decrement it in the code whenever we create an object or delete an object.
+    // But better solution is to create a static variable that`s part of the player class, and then we can manipulate that variable directly within the player class.
+    // To make this firstly we need define our class in a header file (.h file):
+    // Player.h:
+    #ifndef _PLAYER_H_
+    #define _PLAYER_H_
+    #include <string>
+
+    class Player
+    {
+    private:
+    static int num_players;        // we can not initialize any parameteter in here unless it is a const!!! 
+    std::string name;
+    int health;
+    int xp;
+    public:
+        std::string get_name() { return name; }
+        int get_health() { return health; }
+        int get_xp() {return xp; } 
+        Player(std::string name_val ="None", int health_val = 0, int xp_val = 0);
+        // Copy constructor
+        Player(const Player &source);
+        // Destructor
+        ~Player();
+        
+        static int get_num_players();    // static functions can only reach static variables
+        
+    };
+
+    #endif // _PLAYER_H_
+
+    // To implement the .h file we need a .cpp file
+    // Player.cpp
+    #include "Player.h"
+
+    int Player::num_players {0};              // static variable is initialized here!
+
+    Player::Player(std::string name_val, int health_val, int xp_val) 
+        : name{name_val}, health{health_val}, xp{xp_val} {
+            ++num_players;
+    }
+
+    Player::Player(const Player &source)
+        : Player {source.name, source.health, source.xp}  {
+    }
+
+    Player::~Player() {
+        --num_players;
+    }
+
+    int Player::get_num_players() {
+        return num_players;
+    }
+    // main.cpp:
+    #include <iostream>
+    #include "Player.h"
+
+    using namespace std;
+
+    void display_active_players() {
+        cout << "Active players: " << Player::get_num_players() << endl;
+    }
+
+    int main() {
+        display_active_players();         // Displays 0
+        Player hero{"Hero"};              // We create an object here.
+        display_active_players();         // Displays 1
+        
+        {
+            Player frank{"Frank"};
+            display_active_players();     // Displays 2 since we created another object
+        }
+        display_active_players();         // Displays 1 since the object inside the block was deleted after the block ends!
+        
+        Player *enemy = new Player("Enemy", 100, 100); 
+        display_active_players();         // Displays 2
+        delete enemy;
+        display_active_players();         // Displays 1
+        return 0;
+    }     
+
+    // STRUCTS (STRUCTURE)
+    // Another way to create objects in c++, comes from C programing language! In C we create structs as a container for data, much like a record in many programming languages.
+    // C++ also supports struck since it has to be competible with C. However, it adds the ability to treat structs very much like classes.
+    // The only difference is that the members of the structs are public by default. Whereas the members of classes are private by default.
+    // Just use struct instead of class while declaring!
+    // When to use struct:
+        // Use struct for passive objects with public access.
+        // Do not declare methods in struct.
+    // When to use class: If your objects are active or they have complex behaviour:
+        // Use class for active objects with private access.
+        // Implement gatters/setters as needed.
+        // Implement member methods as needed.
+
+    // FRIENDS OF A CLASS:
+    // Friends have always been a controversial topic in c++. Controversory is about encapsulation and whether friends violate encapsulation or enhance it.
+    // A friend of a class is a function or another class that has access to private class members. And that fucntion or class is NOT a member of the class it is accessing.
+    // A friend function:
+        // Can be standalone fuction or member method of another class.
+    // A friend class: another class to have access to private class members. (The entire class will have access to the private information of the class granting friendship.)
+    // Friend ship must be granted not taken!
+    // A class must explcitly declare its friends in its class declaration using the friend keyword.
+    // Friendship is not symmetric: Means if A is a friend of B, B may not be friend of A. (This must be granted in B to make A a friend of it)
+    // Friendship is not transitive: Means Being A a friend of B and C a friend of B, does not mean C is a friend A.
+    // How to declare friends:
+    // First define the class in a header file Player.h:
+    #ifndef _PLAYER_H_
+    #define _PLAYER_H_
+    #include <string>
+
+    #include "Other_class.h"
+    class Friend_class;
+
+    class Player {
+        friend void Other_class::display_player(Player &p);    // This is a friend fucntion(method) of a different class.
+        friend void display_player(Player &p);                 // A friend standalone function. 
+        friend class Friend_class;                             // A friend class.
+    private:
+    static int num_players;
+    std::string name;
+    int health;
+    int xp;
+    public:
+        std::string get_name() { return name; }
+        int get_health() { return health; }
+        int get_xp() {return xp; } 
+        Player(std::string name_val ="None", int health_val = 0, int xp_val = 0);
+        // Copy constructor
+        Player(const Player &source);
+        // Destructor
+        ~Player();
+        
+        static int get_num_players();
+        
+    };
+
+    #endif // _PLAYER_H_
+
+    // Second create .cpp file for this class Player.cpp:
+    #include "Player.h"
+
+    int Player::num_players {0};
+
+    Player::Player(std::string name_val, int health_val, int xp_val) 
+        : name{name_val}, health{health_val}, xp{xp_val} {
+            ++num_players;
+    }
+
+    Player::Player(const Player &source)
+        : Player {source.name, source.health, source.xp}  {
+    }
+
+    Player::~Player() {
+        --num_players;
+    }
+
+    int Player::get_num_players() {
+        return num_players;
+    }
+
+    // Define other class whose method reaches to player class Other_class.h:
+    #ifndef _OTHER_CLASS_H_
+    #define _OTHER_CLASS_H_
+
+    class Player;
+
+    class Other_class
+    {
+    public:
+        void display_player(Player &p);
+    };
+
+    #endif // _OTHER_CLASS_H_
+
+    // Other_class.cpp:
+    #include <iostream>
+    #include "Other_class.h"
+    #include "Player.h"
+
+    void Other_class::display_player(Player &p) {
+        std::cout << p.name << std::endl;
+        std::cout << p.health << std::endl;
+        std::cout << p.xp << std::endl; 
+    }
+
+    // Friend_class.h
+
+    #ifndef _FRIEND_CLASS_H_
+    #define _FRIEND_CLASS_H_
+    #include <string>
+    #include "Player.h"
+
+    class Friend_class
+    {
+    public:
+        void set_hero_name(Player &p, std::string name);
+        void display_player(Player &p);
+    };
+
+    #endif // _FRIEND_CLASS_H_
+    
+    // Friend_class.cpp
+    #include <iostream>
+    #include "Friend_class.h"
+
+    class Player;
+    void Friend_class::set_hero_name(Player &p, std::string name) {
+        p.name = name;
+    }
+
+    void Friend_class::display_player(Player &p) {
+        std::cout << p.name << std::endl;
+        std::cout << p.health << std::endl;
+        std::cout << p.xp << std::endl; 
+    }
+
+    // Main.cpp
+    #include <iostream>
+    #include <string>
+    #include "Player.h"
+    #include "Other_class.h"
+    #include "Friend_class.h"
+
+    void display_player(Player &p) {
+        std::cout << p.name << std::endl;
+        std::cout << p.health << std::endl;
+        std::cout << p.xp << std::endl; 
+    }
+
+    using namespace std;
+
+    int main() {
+    
+        Player hero{"Hero", 100, 35};
+        display_player(hero);
+        
+        Other_class other;
+        other.display_player(hero);
+        
+        Friend_class friend_class;
+        friend_class.set_hero_name(hero,"SUPER HERO");
+        friend_class.display_player(hero);
+        
+        return 0;
+    }
     }
