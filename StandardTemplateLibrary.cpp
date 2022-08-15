@@ -521,5 +521,5 @@ int main(){
     while (it != vec.end()) {
         std::cout << *it << " ";
         ++it;
-    }
+    }  // 3 2 1
 }
