@@ -1,6 +1,7 @@
 // Mystring.cpp
 #include <cstring>
 #include <iostream>
+#include <cctype>
 #include "Mystring.h"
 
 // No-args constructor
@@ -36,17 +37,12 @@ Mystring::Mystring( Mystring &&source)
         std::cout << "Move constructor used" << std::endl;
 }
 
- // Destructor
+// Destructor
 Mystring::~Mystring() {
-    if (str == nullptr) {
-        std::cout << "Calling destructor for Mystring : nullptr" << std::endl;
-    } else {
-         std::cout << "Calling destructor for Mystring : " << str << std::endl;  // *str yazarsan sadece ilk harfi gosteriyor
-    }
     delete [] str;
 }
 
-// Copy assignment
+// Copy assignment operator
 Mystring &Mystring::operator=(const Mystring &rhs) {
     std::cout << "Copy assignment" << std::endl;
     if (this == &rhs)    // checking if there is a self assignment: means checking if we are assigning same parameter to same one! p1 = p1
@@ -59,7 +55,7 @@ Mystring &Mystring::operator=(const Mystring &rhs) {
     return *this;  // this allows us to support chain assignment s1 = s2 = s3. We are returning the reference not the pointer.
 }
 
-// Move assignment
+// Move assignment operator
 Mystring &Mystring::operator=(Mystring &&rhs) {  // we use two ampersand operators here to tell the compiler that the right hand-side object is an r-value.
                                                  // rhs object can not be const, since we will be modifying that data! in line 58!  
     std::cout << "Using move assignment" << std::endl;
@@ -70,6 +66,32 @@ Mystring &Mystring::operator=(Mystring &&rhs) {  // we use two ampersand operato
     rhs.str = nullptr; // null out the pointer of rhs, otherwise it would be a deep copy!
     return *this;    
 }
+
+// Equality (Binary Operator - have an argument) 
+bool Mystring::operator==(const Mystring &rhs) const {
+    return (std::strcmp(str, rhs.str) == 0);
+}
+
+// Make lowercase (Unary Operator!)
+Mystring Mystring::operator-() const {   // const sincce we do not want to modify current object, instead we want to cerate a new object!
+    char *buff= new char[std::strlen(str) + 1];
+    std::strcpy(buff, str);
+    for (size_t i=0; i<std::strlen(buff); i++)
+        buff[i] = std::tolower(buff[i]);
+    Mystring temp {buff};
+    delete [] buff;
+    return temp;
+}
+
+// Concatentate (Binary Operator - have an argument) 
+Mystring Mystring::operator+(const Mystring &rhs) const {
+    char *buff = new char[std::strlen(str) + std::strlen(rhs.str) + 1]; // we create a new object to copy the argument. we do not want to change the argument.
+    std::strcpy(buff, str);
+    std::strcat(buff, rhs.str);
+    Mystring temp {buff};  // creating a temporary objact at the stack
+    delete [] buff;
+    return temp;
+}  // object on the left hand side must be a member object of a Mystring class
 
 // Display method
 void Mystring::display() const {
