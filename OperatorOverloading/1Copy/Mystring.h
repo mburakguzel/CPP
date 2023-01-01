@@ -32,6 +32,9 @@ public:
     Mystring(const char *s);                 // Overloaded contstructor              
     Mystring(const Mystring &source);        // Copy constructor
     ~Mystring();                             // Destructor
+    
+    Mystring &operator=(const Mystring &rhs);       // Copy assignment - we are overloading the assignment operator here!
+
     void display() const;
     int get_length() const;                  // getters
     const char *get_str() const;

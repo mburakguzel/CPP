@@ -34,6 +34,19 @@ Mystring::~Mystring() {
     delete [] str;
 }
 
+// Copy assignment
+Mystring &Mystring::operator=(const Mystring &rhs) {
+    std::cout << "Copy assignment" << std::endl;
+    if (this == &rhs)    // checking if there is a self assignment: means checking if we are assigning same parameter to same one! p1 = p1
+        return *this;
+    
+    delete [] str;  // same with below code!
+    // delete [] this->str;    // first we need to deallocate the space where str points to! otherwise when we copy the new data over, we will orphan(osuz birakmak) this memory and end up with a memory leak.
+    str = new char[std::strlen(rhs.str) + 1];  // allocating enough storage from the heap! size of rhs(right hand side) + 1 (for string terminator for C strings!)
+    std::strcpy(this->str, rhs.str);
+    return *this;  // this allows us to support chain assignment s1 = s2 = s3. We are returning the reference not the pointer.
+}
+
 // Display method
 void Mystring::display() const {
     std::cout << str << " : " << get_length() << std::endl;
