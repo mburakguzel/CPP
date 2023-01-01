@@ -29,8 +29,13 @@ Mystring::Mystring(const Mystring &source)
         std::strcpy(str, source.str);
 }
 
-// Destructor
+ // Destructor
 Mystring::~Mystring() {
+    if (str == nullptr) {
+        std::cout << "Calling destructor for Mystring : nullptr" << std::endl;
+    } else {
+         std::cout << "Calling destructor for Mystring : " << str << std::endl;  // *str yazarsan sadece ilk harfi gosteriyor
+    }
     delete [] str;
 }
 

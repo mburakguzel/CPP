@@ -6,20 +6,19 @@
 
 int main() {
     Mystring a {"Hello"};                // overloaded constructor
-    Mystring b;                             // no-args contructor
-    b = a;                                      // copy assignment 
-                                                  // b.operator=(a)
-    b = "This is a test";                 // b.operator=("This is a test");
+    a = Mystring{"Hola"};                // Overloaded constructor then move assignment
+    a = "Bonjour";                       // Overloaded constructor then move assignment
+    
 /*  
     Mystring empty;                      // no-args constructor
     Mystring larry("Larry");             // overloaded constructor
-    Mystring stooge {larry};            // copy constructor 
-    Mystring stooges;                   // no-args constructor
+    Mystring stooge {larry};             // copy constructor 
+    Mystring stooges;                    // no-args constructor
     
-    empty = stooge;                     // copy assignment operator
+    empty = stooge;                      // copy assignment operator
     
     empty.display();                      // Larry : 5
-    larry.display();                         // Larry : 5
+    larry.display();                      // Larry : 5
     stooge.display();                     // Larry : 5
     empty.display();                      // Larry : 5
     
