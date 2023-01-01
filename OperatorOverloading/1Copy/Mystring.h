@@ -14,8 +14,12 @@
     // Cannot create new operators.
     // C++ allows you to overload operators using global functions or member methods. However there are several operators that must be implemented as member methods such a [], (), -> and =(assignment operator)
 
-// Defining our own string class
-// Mystring.h
+// Overloading Copy Operator
+// Assignment is not initializing, initialization of an object is done by constructors when we create new objects. 
+// We don need to overload assignment operator because C++ will provide a compiler generated one for us. This is very similat to what it did with the default copy constructor. 
+// Assigning one object to another will invoke the copy constructor. Default assignment is member wise assignment which means shallow copying.
+// If our class have raw pointer data members, we must use deep copy. Since we have a raw pointer in our new defined Mystring class, we need to define a overloaded copy constructor, so that it deep copies the pointed two data on the heap
+// In below code we are trying to define our own string class!
 #ifndef _MYSTRING_H_
 #define _MYSTRING_H_
 
