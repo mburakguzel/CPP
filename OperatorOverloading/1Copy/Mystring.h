@@ -6,6 +6,7 @@
     // Number result = multiply(add(a,b), divide(c,d)); or using member methods Number result = (a.add(b)).multiply(c.divide(d));
     // Instead overloaded operators: Number result = (a+b)*(c/d);
 // The following operators can not be overloaded (::(double precision operator), :?(condition operator), .*(the pointer to member operator), .(dot operator), sizeof operator)
+// Overloading the C++ assignment operator should be done when the class contains raw pointers!
 
 // Rules of overloading operaors:
     // Precedence and associativity of the overloaded operator can not be changed.

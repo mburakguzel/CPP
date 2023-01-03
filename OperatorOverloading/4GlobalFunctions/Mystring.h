@@ -3,6 +3,7 @@
     // Using getter member functions is also possible, but mostly we see them implementes as friends. 
     // For unery operators we need to define one object in parameter list (arguments of function). For binary two objects.
     // We can not use member function and global function at the same time for overloading the same operator! 
+
 #ifndef _MYSTRING_H_
 #define _MYSTRING_H_
 
