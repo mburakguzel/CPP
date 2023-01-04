@@ -27,7 +27,7 @@
 
 // C++ supports public, private and protected inheritence. Most of the OOP languages support only public inheritance!
     // Public inheritance: Most common. Establishes "is-a" relationship between Derived and base classes.
-    // Private and Protected Inheritance: Will not goo deep into them!
+    // Private and Protected Inheritance: Will not go deep into them!
         //  Establishes "derived class has a base class" relationship.
         // "Is implemented in terms of" relationship
         // Different from composition.
