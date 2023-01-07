@@ -1,5 +1,3 @@
-// Section 15
-// Redefining and Using Base Class Methods
 #include <iostream>
 #include "Savings_Account.h"
 
