@@ -42,7 +42,7 @@ int main() {
 //   Base b;
 //    Base b{100};
 
-//   Derived d; // base non arg const, derrved non args constr, 
+//   Derived d; // base non arg const, derived non args constr, derived destructor, base destructor.
 
 Derived d {1000};  // generates error if derived int overloaded constructor is not defined.
 // base no arg const (THIS IS BECAUSE WE DID NOT DEFINE IT EXPLICITLY IN DERIVED CONSTR. WE will see it in next video), derived non args constr, 
