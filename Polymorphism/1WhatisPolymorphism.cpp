@@ -14,6 +14,11 @@
     // Savings b;
     // b.withdraw(1000);  // calls Savings::withdraw
 
+// For dynamic polymorphism we must have:
+    // Inheritance
+    // Base class pointer or Base class reference
+    // Virtual Functions
+
 // Dynamic polimorphism example;
     // Account *p = new Savings();
     // p->withdraw(1000);      // this calls Account::withdraw(), however it should be Savings::withdraw()
