@@ -16,7 +16,7 @@ public:
 
 class Derived: public Base {
 public:
-    virtual void say_hello() const override  {             // Assume you did not put const here. This will be statically bound ot base since signatrure is different. So, you do not override here instead redefinde.
+    virtual void say_hello() const override  {             // Assume you did not put const here. This will be statically bound to base since signatrure is different. So, you do not override here instead redefinde.
         std::cout << "Hello - I'm a Derived class object" << std::endl; // Compiler will not generate any warning or error. But if you put that override specifier, compiler will generate an error if signature is different. So, you can not contine without fixing this problem.
     }
     virtual ~Derived() {}
