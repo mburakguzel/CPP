@@ -98,7 +98,6 @@ int main() {
     std::vector<Shape *> shapes {s1,s2,s3};    
     for (const auto p: shapes) 
         p->draw();
-        
     screen_refresh(shapes);
     
     delete s1;
