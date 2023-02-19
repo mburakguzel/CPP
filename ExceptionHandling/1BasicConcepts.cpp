@@ -37,10 +37,8 @@
         // Can have multiple catch handlers that expect different types of exceptions.
         // May or may not cause the program to terminate.
 
+// The C++ catch-all exception handler is written as catch(...)
 #include <iostream>
-
-
-
 int main() {    
     int miles {};
     int gallons {};

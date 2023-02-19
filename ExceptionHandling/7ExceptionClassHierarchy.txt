@@ -1,0 +1,19 @@
+C++ provides a class hierarchy of exception classes. These exception classes are used throughout the c++ standard libraries.
+    std::exception is the base class. All other exception classes are ultimately derived from it.
+    std::exception provides a virtual function what() that returns a c-style string with a description of the exception that occurred.
+    We can create our own user-defined exception subclasses and then implement the what virtual function so that it displays whatever exception messafe we want.
+
+To see the hierarchy see video 212 1:08.
+
+Deriving our class from std::exception:
+
+class IllegalBalanceException: public std:: exception
+{
+public:
+    IllegalBalanceException() noexcept = default; // noexcept keyword tells the compiler that the method will not throw an exception, so do not throw exception from these methods.
+                                                  // If you throw an exception from a no throw method, the program will terminate, the exception will not be handled.
+    ~llegalBalanceException() = default;  // The destructor is noecept by default. So not needed to type it.
+    virtual const char* what() const noexcept {
+        return "Illegal balance exception";
+    }
+};
