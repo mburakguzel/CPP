@@ -505,6 +505,7 @@ int main(){
         std::cout << *it << " ";
         ++it;
     }   // 1 2 3
+    
 
     // Another example with for loop: this is how the range based for loop works!
     std::vector<int> vec {1,2,3};
