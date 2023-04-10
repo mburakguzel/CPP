@@ -3,7 +3,7 @@
 // Iterators are implemented as template classes, so we create iterator objects and use them to iterate through our containers.
 // The syntax we use with iterators is similar to pointers. We can use dereference operator, the increment and the decrement operators and so forth. This was done intentionelly.
 // C++ programmers are confortable with the pointer syntax and it is very easy to learn how to use iterators without learning some other arbitrary syntax.
-// Most of the STL containers can be traversed with iterators, stack and queue are exceptions.
+// Most of the STL containers can be traversed (ileri geri gezinmek) with iterators, stack and queue are exceptions.
 // Vectors allow us to access their elements randomly, however other containers do not allow us to randomly access elements like a vector does. So for those containers, iterators are necessary.
 // Declare iterator: Iterators must be declared based on the container type they will iterate over.
     // std::vector<int>::iterator it1;         // iterate over a vector of integers
