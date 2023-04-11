@@ -1,5 +1,5 @@
 // The deque acts like an double ended queue.
-// Deque size is dynami and handled by STL.
+// Deque size is dynamic and handled by STL.
 // But unlike vectors, deque's element are not stored in contiguous memory. 
 // Rapid insertation and deletion at the back(end) and front(top) (constant time).
 // Inserting elements into any other part of the deque other than the back(end) is not as efficient. It happens in linear time, which means that the running time increases linearly with the size of the deque.
@@ -7,7 +7,7 @@
 // Like all the STL containers, the deque supports copy and move semantics for initialization and assignment.
 // IMPORTANT NOTE: If you will add new element to middle of the container, use list instead of deque.
 
-// Unlike vectors, decques are implemented as a collection of emory blocks, these memory  blocks contan elements that are in a contigous memory. 
+// Unlike vectors, decques are implemented as a collection of memory blocks, these memory blocks contain elements that are in a contigous(komsu) memory. 
 // But blocks themselves are not in contiguous memory.
 // A good way to think of a deque is as a linked list of vectors.
 // So when we add an element at the front or back, it adds it if there is space. If not, it will allocate a new block, add the element to that block and then link in the block.
