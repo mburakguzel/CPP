@@ -1,0 +1,41 @@
+Basics.cpp Done!
+RunningCOdeviacmd.cpp Done!
+IO.cpp Done!
+VariablesandConstants.cpp Done!
+Arrays.cpp Done!
+Vectors.cpp Done!
+StatementandOperators.cpp Done!
+IF.cpp Done!
+Switch.cpp Done!
+ForLoop.cpp Done!
+Whilelopp.cpp Done!
+Chars.cpp Done!
+Strings.cpp Done!
+Functions.cpp Done!
+Scope.cpp Done!
+Pointers.cpp Done!
+References.cpp Done!
+Operator Overloading	
+Inheritance
+Polymorphism
+Smart Pointers
+Exception Hnadling
+I/O Streams
+STL
+Lambda
+Enumerations
+26
+
+34Githubda
+
+Ignore below files:8 adet
+.gitignore
+OOP.cpp
+Section Chllenges
+Smart pointers.cpp
+StandardTemplateLibrary.cpp
+Test.cpp
+output.txt
+poem_out.txt
+
+
