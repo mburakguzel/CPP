@@ -25,7 +25,7 @@ int main() {
     // static int value{10}; // being initialized to 0 if not initialized by user.
 
 void local_example(int x) {
-    int num {1000};     // local to local_example, only initialize very firs time, skip this line if function called again.
+    int num {1000};     // local to local_example, 
     cout << "\nLocal num is: " << num << " in local_example - start" << endl;
     num=x;
     cout << "Local num is: " << num << " in local_example - end" << endl;
@@ -33,7 +33,7 @@ void local_example(int x) {
 }
 
 void static_local_example() {
-    static int num {5000};      // local to static_local_example static - retains it value between calls
+    static int num {5000};      // local to static_local_example static - retains it value between calls. Only initialize very firs time, skip this line if function called again.
     cout << "\nLocal static  num is: " << num << " in static_local_example - start" << endl;
     num += 1000;
     cout << "Local static  num is: " << num << " in static_local_example - end" << endl;
@@ -43,12 +43,21 @@ int main() {
     
 
     local_example(10);
+    // Displays: Local num is: 1000 in local_example - start
+    // Displays: Local num is: 10 in local_example - end
     local_example(20);
+    // Displays: Local num is: 1000 in local_example - start
+    // Displays: Local num is: 20 in local_example - end    
     
-    
     static_local_example();
+    // Displays: Local static  num is: 5000 in static_local_example - start
+    // Displays: Local static  num is: 6000 in static_local_example - end 
     static_local_example();
+    // Displays: Local static  num is: 6000 in static_local_example - start
+    // Displays: Local static  num is: 7000 in static_local_example - end 
     static_local_example();
+    // Displays: Local static  num is: 7000 in static_local_example - start
+    // Displays: Local static  num is: 8000 in static_local_example - end 
 
     cout << endl;
     return 0;
