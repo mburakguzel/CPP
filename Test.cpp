@@ -15,6 +15,7 @@ int main() {
     
     
     global_example();
+    
     global_example();
     
 
