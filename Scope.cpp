@@ -77,8 +77,11 @@ int main() {
     
     
     global_example();
+    // Displays: Global num is: 300 in global_example - start
+    // Displays: Global num is: 600 in global_example - end
     global_example();
-    
+    // Displays: Global num is: 600 in global_example - start
+    // Displays: Global num is: 1200 in global_example - end    
 
     cout << endl;
     return 0;
